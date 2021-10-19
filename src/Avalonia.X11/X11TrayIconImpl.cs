@@ -248,7 +248,17 @@ namespace Avalonia.X11
             return Task.FromResult(Disposable.Create(() => NewStatusAsync -= handler));
         }
 
-        public Task<object> GetAsync(string prop) => Task.FromResult(new object());
+        public Task<object> GetAsync(string prop)
+        {
+            switch (prop)
+            {
+                case "IconPixmap":
+                    return Task.FromResult((object)_backingProperties.IconPixmap);
+                case "Title":
+                    return Task.FromResult((object)_backingProperties.Title);
+            }
+            return Task.FromResult(new object());
+        }
 
         public Task<StatusNotifierItemProperties> GetAllAsync() => Task.FromResult(_backingProperties);
 
